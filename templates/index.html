@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Scientific Informator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+            margin: 0;
+            padding: 0;
+            color: #004d40;
+        }
+
+        header {
+            background-color: #004d40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .main-heading {
+            font-size: 2.8em;
+            font-weight: bold;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .search-bar input {
+            width: 60%;
+            max-width: 500px;
+            padding: 12px;
+            border: 2px solid #004d40;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: #00796b;
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            margin-left: 10px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #004d40;
+        }
+
+        .animal-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 10px;
+        }
+
+        .animal-box {
+            width: 90%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .animal-box:hover {
+            transform: scale(1.03);
+        }
+
+        .animal-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #00796b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .animal-info {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .animal-info p {
+            margin: 8px 0;
+        }
+
+        .animal-info strong {
+            color: #004d40;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.5em;
+            color: #555;
+            margin: 50px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #004d40;
+            color: white;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="main-heading">Wildlife Scientific Informator</h1>
+        <form method="POST" action="/" class="search-bar">
+            <input type="text" name="query" placeholder="Search by name, species, or scientific name" value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <div class="animal-container">
+        {% if animals %}
+            {% for animal in animals %}
+            <div class="animal-box">
+                <h2 class="animal-name">{{ animal['species'] }}</h2>
+                <div class="animal-info">
+                    <p><strong>Scientific Name:</strong> {{ animal['scientificname'] }}</p>
+                    <p><strong>Diet:</strong> {{ animal['diet'] }}</p>
+                    <p><strong>Average Lifespan:</strong> {{ animal['averagelifespan'] }} years</p>
+                    <p><strong>Conservation Status ID:</strong> {{ animal['conservationstatusid'] }}</p>
+                    <p><strong>Weight:</strong> {{ animal['weight'] }} kg</p>
+                    <p><strong>Size:</strong> {{ animal['size'] }}</p>
+                    <p><strong>Habitat:</strong> {{ animal['habitat'] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-results">
+                No results found for "{{ query }}". Please try another search!
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; 2024 Wildlife Scientific Informator | All Rights Reserved
+    </footer>
+</body>
+</html>
